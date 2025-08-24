@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>afetch.js - Example 3: Form Data</title>
+  <script src="../src/afetch.js" defer></script>
+</head>
+
+<body>
+  <h1>afetch.js - Example 3: Form Data</h1>
+
+  <p>
+    The server will receive form data and will return it.
+  </p>
+
+  <form id="frmProfile">
+    First name: <input name="firstname" value="foo">
+    Last name: <input name="lastname" value="bar">
+  </form>
+
+  <a href='#' fetch='server.php' fetch-method='post' fetch-forms='frmProfile' fetch-target="#result">
+    Click me!
+  </a>
+
+  <div id="result"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>afetch.js - Example 7: Handling Errors</title>
+  <script src="../src/afetch.js" defer></script>
+</head>
+
+<body>
+  <h1>afetch.js - Example 7: Handling Errors</h1>
+
+  <p>
+    Handling various types of errors.
+  </p>
+
+  <ul>
+    <li>
+      <a href='#' fetch='https://www.google.com/' fetch-onerror="hookOnError">
+        fetch-onfailure: Happens due to URL, CORS, etc. Click me and check console!
+      </a>
+    </li>
+    <li>
+      <a href='#' fetch='server_parseddata.php?sendme=wrongjson' fetch-onparsingerror="hookOnParsingError"
+        fetch-onerror="hookOnError">
+        fetch-onparsingerror: When receive invalid JSON in response. Click me and check console!
+      </a>
+    </li>
+    <li>
+      <a href='#' fetch='server.php' fetch-body='abcdefg...' fetch-onfetchbodyerror="hookOnFetchBodyError"
+        fetch-onerror="hookOnError">
+        fetch-onfetchbodyerror: When invalid fetch-body is provided. Click me and check console!
+      </a>
+    </li>
+  </ul>
+
+  <div id="result"></div>
+
+  <script>
+
+    // The fetch-onfailure hook triggers on network errors, timeouts, aborted requests, HTTP non-OK statuses, or unexpected parsing failures.
+    function hookOnFailure({ element, url, method, error }) {
+      console.log(['hookOnFailure', element, url, method, error]);
+      document.getElementById('result').innerHTML = error;
+    }
+
+    // The fetch-onparsingerror hook triggers when the response body cannot be parsed into the expected format (e.g., invalid JSON, wrong content type, or corrupted data).    
+    function hookOnParsingError({ element, url, method, error, raw, response }) {
+      console.log(['hookOnParsingError', element, url, method, error, raw, response]);
+      document.getElementById('result').innerHTML = error;
+    }
+
+    // The fetch-onfetchbodyerror hook triggers when the fetch-body or fetch-headers attribute contains invalid or malformed JSON that cannot be parsed.
+    function hookOnFetchBodyError({ element, error }) {
+      console.log(['hookOnParsingError', element, error]);
+      document.getElementById('result').innerHTML = error;
+    }
+
+    // The fetch-onerror hook triggers on any kind of error.
+    function hookOnError({ element, error }) {
+      console.log(['hookOnError', element, error]);
+      document.getElementById('result').innerHTML = error;
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>afetch.js - Example 5: Hooks</title>
+  <script src="../src/afetch.js" defer></script>
+</head>
+
+<body>
+  <h1>afetch.js - Example 5: Hooks Basic</h1>
+
+  <p>
+    Hook functions are called at different stages of the request lifecycle: when the request starts, when a response is
+    received, and when the request completes.
+  </p>
+
+  <a href='#' fetch='server.php' fetch-onstart="hookOnStart" fetch-onresponse="hookOnResponse"
+    fetch-oncomplete="hookOnComplete" fetch-target="#result">
+    Click me and check console!
+  </a>
+
+  <!-- These act as optional status labels -->
+  <div id="lblStart" style="display:none;"> &check; Started</div>
+  <div id="lblResponse" style="display:none;"> &check; Response Received</div>
+  <div id="lblComplete" style="display:none;"> &check; Completed</div>
+
+  <div id="result"></div>
+
+  <script>
+
+    // This hook executes just before the fetch request starts.
+    function hookOnStart({ element, url, method }) {
+      console.log(['hookOnStart', element, method, url]);
+      document.getElementById('lblStart').style.display = '';
+    }
+
+    // This hook executes when the response is received. For parsed responses (JSON, text, and blob), see Example 6.
+    function hookOnResponse({ element, url, method, response }) {
+      console.log(['hookOnResponse', element, method, url, response]);
+      document.getElementById('lblResponse').style.display = '';
+    }
+
+    // This hook executes after the fetch request is complete.
+    function hookOnComplete({ element, url, method }) {
+      console.log(['hookOnComplete', element, method, url]);
+      document.getElementById('lblComplete').style.display = '';
+    }
+
+  </script>
+
+</body>
+
+</html>

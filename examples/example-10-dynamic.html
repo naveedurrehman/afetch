@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>afetch.js - Example 10: Dynamic</title>
+
+  <script src="../src/afetch.js" defer></script>
+</head>
+
+<body>
+  <h1>afetch.js - Example 10: Dynamic</h1>
+
+  <p>
+    The fetch attribute is empty.
+    It will be filled dynamically using hook in fetch-onbefore.
+  </p>
+
+  <a href="#" fetch="" fetch-onbefore="hookOnBefore" fetch-target="#result" fetch-credentials="omit"
+    fetch-target="#result">
+    Click Me!
+  </a>
+
+  <div id="result"></div>
+
+  <script>
+    function hookOnBefore(element) {
+      element.setAttribute('fetch', 'server.php?love=life');
+    }
+  </script>
+</body>
+
+</html>

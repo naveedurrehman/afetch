@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>afetch.js - Example 9: No Cookies</title>
+
+  <script src="../src/afetch.js" defer></script>
+</head>
+
+<body>
+  <h1>afetch.js - Example 9: No Cookies</h1>
+
+  <p>
+    The server will receive query string and will return it. The fetch-credentials attribute controls whether cookies
+    and authentication data are sent with the request (e.g., "omit", "same-origin", or "include").
+    Compare the output with Example 1.
+  </p>
+
+  <a href="#" fetch="server.php?love=life" fetch-target="#result" fetch-credentials="omit">
+    Click Me!
+  </a>
+
+  <div id="result"></div>
+
+</body>
+
+</html>

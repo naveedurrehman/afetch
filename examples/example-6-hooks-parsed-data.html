@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>afetch.js - Example 6: Hooks for Parsed Data</title>
+  <script src="../src/afetch.js" defer></script>
+</head>
+
+<body>
+  <h1>afetch.js - Example 6: Hooks for Parsed Data</h1>
+
+  <p>
+    Hook functions are called when the parsed data is received.
+    The server_parseddate.php file is used to return different types of data based on the sendme query parameter.
+  </p>
+
+  <ul>
+    <li>
+      <a href='#' fetch='server_parseddata.php?sendme=json' fetch-onjson="hookOnJSON">
+        JSON: Click me and check console!
+      </a>
+    </li>
+    <li>
+      <a href='#' fetch='server_parseddata.php?sendme=text' fetch-ontext="hookOnText">
+        Text: Click me and check console!
+      </a>
+    </li>
+    </li>
+    <li>
+      <a href='#' fetch='server_parseddata.php?sendme=blob' fetch-onblob="hookOnBlob">
+        Blob: Click me and check console!
+      </a>
+    </li>
+    <li>
+      <a href='#' fetch='server_parseddata.php?sendme=js' fetch-onjs="hookOnJS">
+        JS: Click me and check console!
+      </a>
+    </li>
+  </ul>
+
+  <div id="result"></div>
+
+  <script>
+
+    function hookOnJSON({ data }) {
+      console.log(['hookOnJSON', data]);
+      document.getElementById('result').innerHTML = "JSON data received: " + JSON.stringify(data);
+    }
+
+    function hookOnText({ data }) {
+      console.log(['hookOnText', data]);
+      document.getElementById('result').innerHTML = "Text data received: " + data;
+    }
+
+    function hookOnBlob({ data }) {
+      console.log(['hookOnBlob', data]);
+      document.getElementById('result').innerHTML = "Blob data received.";
+      const url = URL.createObjectURL(data);
+      const img = document.createElement("img");
+      img.src = url;
+      img.style.maxWidth = "200px";
+      document.body.appendChild(img);
+    }
+
+    function hookOnJS({ data }) {
+      console.log(['hookOnJS', data]);
+      document.getElementById('result').innerHTML = "JS received and executed: " + data;
+    }
+
+  </script>
+
+</body>
+
+</html>
