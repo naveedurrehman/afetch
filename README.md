@@ -2,7 +2,7 @@
 
 **afetch** is minimal JavaScript library for adding fetch() capabilities to &lt;a> and &lt;button> tags. **afetch** turns plain HTML into real apps: trigger **fetch()** with declarative attributes on `<a>` and `<button>`. No framework. No build step. Works anywhere.
 
-## <img src="./assets/banner.png" width="20" height="20" alt="afetch banner">
+## <img src="./assets/banner.png" alt="afetch banner">
 
 ---
 
