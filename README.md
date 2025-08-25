@@ -1,8 +1,23 @@
 # afetch — Add fetch() to `<a>` & `<button>` via attributes
 
+<img src="./assets/logo.png" alt="afetch banner" width="120" align="right">
+
 **afetch** is minimal JavaScript library for adding fetch() capabilities to &lt;a> and &lt;button> tags. **afetch** turns plain HTML into real apps: trigger **fetch()** with declarative attributes on `<a>` and `<button>`. No framework. No build step. Works anywhere.
 
-## <img src="./assets/banner.png" alt="afetch banner">
+---
+
+## 🚀 5-second demo
+
+```html
+<script src="afetch.js"></script>
+
+<a
+  fetch="/api/hello"
+  fetch-onjson="({data}) => alert(data.message)"
+>
+  Click Me!
+</a>
+```
 
 ---
 
@@ -21,20 +36,6 @@
 
 > **tl;dr** — afetch gives you the 80% you write over and over (wiring, parsing, rendering, and states) as HTML attributes and well-placed hooks, so you ship interactivity faster with less JavaScript.
 
----
-
-## 🚀 5-second demo
-
-```html
-<script src="afetch.js"></script>
-
-<a
-  fetch="/api/hello"
-  fetch-onjson="({data}) => alert(data.message)"
->
-  Click Me!
-</a>
-```
 ---
 
 ## 🛠️ Attributes
