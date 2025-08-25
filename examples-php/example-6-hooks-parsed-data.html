@@ -8,6 +8,7 @@
 </head>
 
 <body>
+
   <h1>afetch.js - Example 6: Hooks for Parsed Data</h1>
 
   <p>
@@ -17,8 +18,14 @@
 
   <ul>
     <li>
+      <a fetch="server_parseddata.php?sendme=json" fetch-onjson="({data}) => alert(data.message)"
+        fetch-target="#result">
+        JSON: Click me! (Example of in-line JS)
+      </a>
+    </li>
+    <li>
       <a href='#' fetch='server_parseddata.php?sendme=json' fetch-onjson="hookOnJSON">
-        JSON: Click me and check console!
+        JSON: Click me and check console! (Example of global function)
       </a>
     </li>
     <li>
@@ -34,6 +41,7 @@
     </li>
     <li>
       <a href='#' fetch='server_parseddata.php?sendme=js' fetch-onjs="hookOnJS">
+        <!--Use fetch-execjs="false" to stop automatic execution of JS codes-->
         JS: Click me and check console!
       </a>
     </li>

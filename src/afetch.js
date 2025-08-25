@@ -9,14 +9,23 @@
     const lower = s => (s || "").toLowerCase();
     const strictJSON = (s) => (s ? JSON.parse(s) : null);
     const resolveFn = (name) => (name ? name.split(".").reduce((o, k) => (o ? o[k] : undefined), globalThis) : null);
+
     const callHook = (el, attr, detail) => {
-        const fnName = el.getAttribute(attr);
-        if (!fnName) return;
-        const fn = resolveFn(fnName);
+        const code = el.getAttribute(attr);
+        if (!code) return;
+
+        let fn;
+        try {
+            fn = resolveFn(code);
+            fn = new Function('detail', `"use strict"; return ((${code}))(detail);`);
+        } catch (e) {
+            console.error(`Invalid inline handler in ${attr}: ${code}`, e);
+            return;
+        }
+
         if (typeof fn === "function") {
-            try { fn(detail); } catch (e) { console.error(`Error in ${attr}(${fnName})`, e); }
-        } else {
-            console.warn(`Handler not found for ${attr}: ${fnName}`);
+            try { return fn(detail); }
+            catch (e) { console.error(`Error running ${attr}`, e); }
         }
     };
 
@@ -68,7 +77,7 @@
                     if (toMerge) appendJsonToFormData(fd, toMerge);
                 } catch (e) {
                     console.error("fetch-body merge failed:", e);
-                    callHook(a, "fetch-onerror", { element: el, error: e });
+                    callHook(el, "fetch-onerror", { element: el, error: e });
                 }
             }
             const headers = new Headers();
@@ -113,8 +122,7 @@
         e.preventDefault();
 
         if (a.hasAttribute('fetch-onbefore')) {
-            const fn = eval('(' + a.getAttribute('fetch-onbefore') + ')');
-            fn(a);
+            callHook(a, "fetch-onbefore", a);
         }
 
         const urlAttr = a.getAttribute("fetch");
@@ -129,7 +137,11 @@
         const refPol = a.getAttribute("fetch-referrer-policy") || undefined;
         const responseAs = a.getAttribute("fetch-response") || "auto";
         const targetSel = a.getAttribute("fetch-target") || null;
+        const targetformat = a.getAttribute("fetch-target-format") || 'html';
+        const targetmode = a.getAttribute("fetch-target-mode") || 0;
         const timeoutMs = parseInt(a.getAttribute("fetch-timeout") || "0", 10) || 0;
+        const execjs = getBooleanAttr(a, "fetch-execjs", true);
+
 
         let url = new URL(urlAttr, location.href);
         let body, headers, queryObj, methodOverride;
@@ -142,7 +154,7 @@
             callHook(a, "fetch-onerror", { element: a, error: err });
             if (targetSel) {
                 const t = document.querySelector(targetSel);
-                if (t) t.textContent = `Invalid fetch-body: ${err.message}`;
+                if (t) renderToTarget(t, `Invalid fetch-body: ${err.message}`, targetformat, targetmode)// t.textContent = `Invalid fetch-body: ${err.message}`;
             }
             return;
         }
@@ -178,12 +190,16 @@
             // Handle parse errors on NOT OK responses
             if (!res.ok) {
                 const errParsed = await parseByType(res, responseAs);
-                console.error(['fetch-onparsingerror', errParsed]);
-                callHook(a, "fetch-onparsingerror", { element: a, url: url.href, method, error: errParsed, response: res });
+                console.error(["fetch-onfailure", errParsed]);
+                callHook(a, "fetch-onfailure", { element: a, url: url.href, method, error: errParsed });
                 callHook(a, "fetch-onerror", { element: a, error: errParsed });
                 if (targetSel) {
                     const t = document.querySelector(targetSel);
-                    if (t) t.innerHTML = errParsed.kind === "json" ? JSON.stringify(errParsed.data, null, 2) : ((errParsed.kind === "text" || errParsed.kind === "js") ? errParsed.data : "[blob received]");
+                    if (t) {
+                        renderToTarget(t, errParsed.kind === "json" ? JSON.stringify(errParsed.data, null, 2) : ((errParsed.kind === "text" || errParsed.kind === "js") ? errParsed.data : "[blob received]")
+                            , targetformat, targetmode)
+                        //t.textContent = errParsed.kind === "json" ? JSON.stringify(errParsed.data, null, 2) : ((errParsed.kind === "text" || errParsed.kind === "js") ? errParsed.data : "[blob received]");
+                    }
                 }
                 return;
             }
@@ -201,7 +217,7 @@
                 callHook(a, "fetch-onerror", { element: a, error: parseErr });
                 if (targetSel) {
                     const t = document.querySelector(targetSel);
-                    if (t) t.textContent = raw || String(parseErr);
+                    if (t) renderToTarget(t, raw || String(parseErr), targetformat, targetmode); //t.textContent = raw || String(parseErr);
                 }
                 return;
             }
@@ -210,11 +226,15 @@
             if (parsed.kind === "json") callHook(a, "fetch-onjson", { element: a, url: url.href, method, data: parsed.data, response: res });
             if (parsed.kind === "text") callHook(a, "fetch-ontext", { element: a, url: url.href, method, data: parsed.data, response: res });
             if (parsed.kind === "blob") callHook(a, "fetch-onblob", { element: a, url: url.href, method, data: parsed.data, response: res });
-            if (parsed.kind === "js") { callHook(a, "fetch-onjs", { element: a, url: url.href, method, data: parsed.data, response: res }); eval(parsed.data); }
+            if (parsed.kind === "js") { callHook(a, "fetch-onjs", { element: a, url: url.href, method, data: parsed.data, response: res }); if (execjs === true) { eval(parsed.data); } }
 
             if (targetSel) {
                 const t = document.querySelector(targetSel);
-                if (t) t.innerHTML = parsed.kind === "json" ? JSON.stringify(parsed.data, null, 2) : ((parsed.kind === "text" || parsed.kind === "js") ? parsed.data : "[blob received]");
+                if (t) {
+                    renderToTarget(t, parsed.kind === "json" ? JSON.stringify(parsed.data, null, 2) : ((parsed.kind === "text" || parsed.kind === "js") ? parsed.data : "[blob received]")
+                        , targetformat, targetmode);
+                    //t.textContent = parsed.kind === "json" ? JSON.stringify(parsed.data, null, 2) : ((parsed.kind === "text" || parsed.kind === "js") ? parsed.data : "[blob received]");
+                }
             }
         } catch (error) {
             console.error(["fetch-onfailure", error]);
@@ -229,10 +249,53 @@
         }
     }
 
+
+    function getBooleanAttr(el, name, defaultValue = false) {
+        if (!el.hasAttribute(name)) return defaultValue;        // not present
+        const raw = el.getAttribute(name);
+        if (raw == null || raw === "") return true;             // present, no value
+        const s = String(raw).trim().toLowerCase();
+        if (["true", "1", "yes", "y", "on"].includes(s)) return true;
+        if (["false", "0", "no", "n", "off"].includes(s)) return false;
+        return defaultValue;                                    // unknown token
+    }
+
+    function renderToTarget(el, content, format = "html", mode = "reset") {
+        if (!el) return el;
+
+        // Normalize format
+        const isHtml = String(format).toLowerCase() === "html";
+
+        // Normalize mode
+        const m = (() => {
+            if (mode == null || mode === 0 || String(mode).toLowerCase() === "reset") return 0;
+            if (mode === 1 || String(mode).toLowerCase() === "append") return 1;
+            if (mode === -1 || String(mode).toLowerCase() === "prepend") return -1;
+            return 0; // default fallback
+        })();
+
+        const s = content == null ? "" : String(content);
+
+        if (m === 0) {
+            // reset/replace content
+            if (isHtml) el.innerHTML = s;
+            else el.textContent = s;
+        } else if (m === 1) {
+            // append
+            if (isHtml) el.insertAdjacentHTML("beforeend", s);
+            else el.insertAdjacentText("beforeend", s);
+        } else {
+            // prepend (m === -1)
+            if (isHtml) el.insertAdjacentHTML("afterbegin", s);
+            else el.insertAdjacentText("afterbegin", s);
+        }
+
+        return el;
+    }
+
     function activateSpinner(element, displayStatus) {
         if (element.hasAttribute('fetch-spinner')) {
-            spinner = element.getAttribute('fetch-spinner');
-            document.querySelectorAll(spinner).forEach(el => {
+            document.querySelectorAll(element.getAttribute('fetch-spinner')).forEach(el => {
                 if (displayStatus == true) { el.style.display = ''; }
                 else { el.style.display = 'none'; }
             });
@@ -249,9 +312,11 @@
         const anchors = root.querySelectorAll('a[fetch]:not([data-afetch]), button[fetch]:not([data-afetch])');
         anchors.forEach(a => {
             a.setAttribute('data-afetch', '');
-            if (!a.hasAttribute('role')) a.setAttribute('role', 'button');
-            if (!a.hasAttribute('tabindex')) a.setAttribute('tabindex', '0');
-            if (!a.hasAttribute('href')) a.setAttribute('href', '#');
+            if (a.localName === 'a') {
+                if (!a.hasAttribute('role')) a.setAttribute('role', 'button');
+                if (!a.hasAttribute('tabindex')) a.setAttribute('tabindex', '0');
+                if (!a.hasAttribute('href')) a.setAttribute('href', '#');
+            }
             if (a.hasAttribute('fetch-spinner')) {
                 activateSpinner(a, false);
             }

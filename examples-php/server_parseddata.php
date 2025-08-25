@@ -1,12 +1,12 @@
 <?php
 if ($_GET['sendme'] == 'json') {
     header('Content-Type: application/json');
-    echo json_encode(['time' => time()]);
+    echo json_encode(['message' => 'Hello world!']);
 }
 
 if ($_GET['sendme'] == 'text') {
     header('Content-Type: text/plain');
-    echo date(" j F Y h:i:sa");
+    echo date("Hello world!");
 }
 
 if ($_GET['sendme'] == 'blob') {
@@ -19,7 +19,7 @@ if ($_GET['sendme'] == 'blob') {
 
 if ($_GET['sendme'] == 'js') {
     header('Content-Type: text/javascript');
-    echo 'alert("hi!");';
+    echo 'alert("Hello world!");';
 }
 
 if ($_GET['sendme'] == 'wrongjson') {

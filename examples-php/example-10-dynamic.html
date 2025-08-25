@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <title>afetch.js - Example 10: Dynamic</title>
-
   <script src="../src/afetch.js" defer></script>
 </head>
 
 <body>
+
   <h1>afetch.js - Example 10: Dynamic</h1>
 
   <p>
@@ -25,6 +25,7 @@
 
   <script>
     function hookOnBefore(element) {
+      console.log(element);
       element.setAttribute('fetch', 'server.php?love=life');
     }
   </script>

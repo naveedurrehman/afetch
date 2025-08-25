@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>afetch.js - Example 11: Spinner</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome-4@4.7.4/css/font-awesome.min.css">
+  <script src="../src/afetch.js"></script>
+</head>
+
+<body>
+
+  <h1>afetch.js - Example 11: Spinner</h1>
+
+  <p>
+    A request will be sent to api.dictionaryapi.dev. In the meantime, the spinner will turn on and the button will be
+    disabled.
+  </p>
+
+  <input id="word" type="text" value="game" />
+
+  <button type="button" class="btn btn-primary" fetch="" fetch-onbefore="hookOnBefore" fetch-spinner="#spin"
+    fetch-disabling fetch-target="#result">
+    <i id="spin" class="fa fa-spinner fa-spin" style="display:none;"></i>
+    Define
+  </button>
+
+  <pre id="result"></pre>
+
+  <script>
+    function hookOnBefore(element) {
+      var url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + document.getElementById('word').value;
+      element.setAttribute('fetch', url);
+    }
+  </script>
+
+  <hr />
+  <small>Powered by https://api.dictionaryapi.dev</small>
+</body>
+
+</html>
