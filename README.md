@@ -1,5 +1,6 @@
 # afetch — Add fetch() to `<a>` & `<button>` via attributes
 [![jsDelivr: afetch.min.js](https://img.shields.io/badge/jsDelivr-afetch.min.js-blue?logo=jsdelivr&logoWidth=12&style=flat-square)](https://cdn.jsdelivr.net/gh/naveedurrehman/afetch/dist/afetch.min.js)
+[![CodePen: Examples](https://img.shields.io/badge/CodePen-Collection-000?logo=codepen&logoColor=white&logoWidth=12&style=flat-square)](https://codepen.io/collection/zzBMba)
 
 <img src="./assets/logo.png" alt="afetch banner" width="120" align="right">
 
