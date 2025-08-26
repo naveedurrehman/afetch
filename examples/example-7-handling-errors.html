@@ -17,19 +17,19 @@
 
   <ul>
     <li>
-      <a href='#' fetch='https://www.google.com/' fetch-onerror="hookOnError">
+      <a fetch='https://www.google.com/' fetch-onerror="hookOnError">
         fetch-onfailure: Happens due to URL, CORS, etc. Click me and check console!
       </a>
     </li>
     <li>
-      <a href='#' fetch='server_parseddata.php?sendme=wrongjson' fetch-onparsingerror="hookOnParsingError"
-        fetch-onerror="hookOnError">
+      <a fetch='https://www.naveedurrehman.com/afetch/api/parseddata/?sendme=wrongjson'
+        fetch-onparsingerror="hookOnParsingError" fetch-onerror="hookOnError">
         fetch-onparsingerror: When receive invalid JSON in response. Click me and check console!
       </a>
     </li>
     <li>
-      <a href='#' fetch='server.php' fetch-body='abcdefg...' fetch-onfetchbodyerror="hookOnFetchBodyError"
-        fetch-onerror="hookOnError">
+      <a fetch='https://www.naveedurrehman.com/afetch/api/main/' fetch-body='abcdefg...'
+        fetch-onfetchbodyerror="hookOnFetchBodyError" fetch-onerror="hookOnError">
         fetch-onfetchbodyerror: When invalid fetch-body is provided. Click me and check console!
       </a>
     </li>

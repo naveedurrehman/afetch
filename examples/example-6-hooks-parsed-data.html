@@ -18,29 +18,29 @@
 
   <ul>
     <li>
-      <a fetch="server_parseddata.php?sendme=json" fetch-onjson="({data}) => alert(data.message)"
+      <a fetch="https://www.naveedurrehman.com/afetch/api/parseddata/?sendme=json" fetch-onjson="({data}) => alert(data.message)"
         fetch-target="#result">
         JSON: Click me! (Example of in-line JS)
       </a>
     </li>
     <li>
-      <a href='#' fetch='server_parseddata.php?sendme=json' fetch-onjson="hookOnJSON">
+      <a fetch='https://www.naveedurrehman.com/afetch/api/parseddata/?sendme=json' fetch-onjson="hookOnJSON">
         JSON: Click me and check console! (Example of global function)
       </a>
     </li>
     <li>
-      <a href='#' fetch='server_parseddata.php?sendme=text' fetch-ontext="hookOnText">
+      <a fetch='https://www.naveedurrehman.com/afetch/api/parseddata/?sendme=text' fetch-ontext="hookOnText">
         Text: Click me and check console!
       </a>
     </li>
     </li>
     <li>
-      <a href='#' fetch='server_parseddata.php?sendme=blob' fetch-onblob="hookOnBlob">
+      <a fetch='https://www.naveedurrehman.com/afetch/api/parseddata/?sendme=blob' fetch-onblob="hookOnBlob">
         Blob: Click me and check console!
       </a>
     </li>
     <li>
-      <a href='#' fetch='server_parseddata.php?sendme=js' fetch-onjs="hookOnJS">
+      <a fetch='https://www.naveedurrehman.com/afetch/api/parseddata/?sendme=js' fetch-onjs="hookOnJS">
         <!--Use fetch-execjs="false" to stop automatic execution of JS codes-->
         JS: Click me and check console!
       </a>
