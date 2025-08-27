@@ -154,7 +154,7 @@
             callHook(a, "fetch-onerror", { element: a, error: err });
             if (targetSel) {
                 const t = document.querySelector(targetSel);
-                if (t) renderToTarget(t, `Invalid fetch-body: ${err.message}`, targetformat, targetmode)// t.textContent = `Invalid fetch-body: ${err.message}`;
+                if (t) renderToTarget(t, `Invalid fetch-body: ${err.message}`, targetformat, targetmode)
             }
             return;
         }
@@ -198,7 +198,6 @@
                     if (t) {
                         renderToTarget(t, errParsed.kind === "json" ? JSON.stringify(errParsed.data, null, 2) : ((errParsed.kind === "text" || errParsed.kind === "js") ? errParsed.data : "[blob received]")
                             , targetformat, targetmode)
-                        //t.textContent = errParsed.kind === "json" ? JSON.stringify(errParsed.data, null, 2) : ((errParsed.kind === "text" || errParsed.kind === "js") ? errParsed.data : "[blob received]");
                     }
                 }
                 return;
@@ -217,7 +216,7 @@
                 callHook(a, "fetch-onerror", { element: a, error: parseErr });
                 if (targetSel) {
                     const t = document.querySelector(targetSel);
-                    if (t) renderToTarget(t, raw || String(parseErr), targetformat, targetmode); //t.textContent = raw || String(parseErr);
+                    if (t) renderToTarget(t, raw || String(parseErr), targetformat, targetmode);
                 }
                 return;
             }
@@ -233,7 +232,6 @@
                 if (t) {
                     renderToTarget(t, parsed.kind === "json" ? JSON.stringify(parsed.data, null, 2) : ((parsed.kind === "text" || parsed.kind === "js") ? parsed.data : "[blob received]")
                         , targetformat, targetmode);
-                    //t.textContent = parsed.kind === "json" ? JSON.stringify(parsed.data, null, 2) : ((parsed.kind === "text" || parsed.kind === "js") ? parsed.data : "[blob received]");
                 }
             }
         } catch (error) {

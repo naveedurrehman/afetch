@@ -5,6 +5,9 @@
   <meta charset="UTF-8" />
   <title>afetch.js - Example 5: Hooks</title>
   <script src="../src/afetch.js" defer></script>
+  <!--For CDN: 
+    <script src="https://cdn.jsdelivr.net/gh/naveedurrehman/afetch/dist/afetch.min.js" defer></script>
+  -->
 </head>
 
 <body>
@@ -16,8 +19,8 @@
     received, and when the request completes.
   </p>
 
-  <a fetch='https://www.naveedurrehman.com/afetch/api/main/' fetch-onstart="hookOnStart" fetch-onresponse="hookOnResponse"
-    fetch-oncomplete="hookOnComplete" fetch-target="#result">
+  <a fetch='https://www.naveedurrehman.com/afetch/api/main/?love=life' fetch-onstart="hookOnStart"
+    fetch-onresponse="hookOnResponse" fetch-oncomplete="hookOnComplete" fetch-target="#result">
     Click me and check console!
   </a>
 

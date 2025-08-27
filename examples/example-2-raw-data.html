@@ -5,6 +5,9 @@
   <meta charset="UTF-8" />
   <title>afetch.js - Example 2: Raw Data</title>
   <script src="../src/afetch.js" defer></script>
+  <!--For CDN: 
+    <script src="https://cdn.jsdelivr.net/gh/naveedurrehman/afetch/dist/afetch.min.js" defer></script>
+  -->
 </head>
 
 <body>
@@ -12,14 +15,15 @@
   <h1>afetch.js - Example 2: Raw Data</h1>
 
   <p>
-    The server will receive fetch-body JSON data and will return it.
+    The API receives the raw data (love=life) through body in json format and returns it. The result appears inside #result.
   </p>
 
-  <a fetch='https://www.naveedurrehman.com/afetch/api/main/' fetch-method='post' fetch-body='{"love":"life"}' fetch-target="#result">
+  <a fetch='https://www.naveedurrehman.com/afetch/api/main/' fetch-method='post' fetch-body='{"love":"life"}'
+    fetch-target="#result">
     Click me!
   </a>
 
-  <div id="result"></div>
+  <pre id="result"></pre>
 
 </body>
 

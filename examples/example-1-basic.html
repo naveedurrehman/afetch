@@ -5,6 +5,9 @@
   <meta charset="UTF-8" />
   <title>afetch.js - Example 1: Basic</title>
   <script src="../src/afetch.js" defer></script>
+  <!--For CDN: 
+    <script src="https://cdn.jsdelivr.net/gh/naveedurrehman/afetch/dist/afetch.min.js" defer></script>
+  -->
 </head>
 
 <body>
@@ -12,14 +15,14 @@
   <h1>afetch.js - Example 1: Basic</h1>
 
   <p>
-    The server will receive query string and will return it.
+    The API receives the get/query string (love=life) and returns it. The result appears inside #result.
   </p>
 
   <a fetch="https://www.naveedurrehman.com/afetch/api/main/?love=life" fetch-target="#result">
     Click Me!
   </a>
 
-  <div id="result"></div>
+  <pre id="result"></pre>
 
 </body>
 

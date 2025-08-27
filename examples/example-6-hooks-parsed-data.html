@@ -5,6 +5,9 @@
   <meta charset="UTF-8" />
   <title>afetch.js - Example 6: Hooks for Parsed Data</title>
   <script src="../src/afetch.js" defer></script>
+  <!--For CDN: 
+    <script src="https://cdn.jsdelivr.net/gh/naveedurrehman/afetch/dist/afetch.min.js" defer></script>
+  -->
 </head>
 
 <body>
@@ -18,8 +21,8 @@
 
   <ul>
     <li>
-      <a fetch="https://www.naveedurrehman.com/afetch/api/parseddata/?sendme=json" fetch-onjson="({data}) => alert(data.message)"
-        fetch-target="#result">
+      <a fetch="https://www.naveedurrehman.com/afetch/api/parseddata/?sendme=json"
+        fetch-onjson="({data}) => alert(data.message)" fetch-target="#result">
         JSON: Click me! (Example of in-line JS)
       </a>
     </li>

@@ -5,6 +5,10 @@
   <meta charset="UTF-8" />
   <title>afetch.js - Example 8: Handling Timeout</title>
   <script src="../src/afetch.js" defer></script>
+  <!--For CDN: 
+    <script src="https://cdn.jsdelivr.net/gh/naveedurrehman/afetch/dist/afetch.min.js" defer></script>
+  -->
+
 </head>
 
 <body>
@@ -15,7 +19,7 @@
     The allowed time for fetch is 2000ms but the server will respond in 3000sec.
   </p>
 
-  <a fetch='server_slow.php' fetch-timeout="2000" fetch-ontimeout="hookOnTimeout"
+  <a fetch='https://www.naveedurrehman.com/afetch/api/slow/' fetch-timeout="2000" fetch-ontimeout="hookOnTimeout"
     fetch-onfailure="hookOnFailure" fetch-onerror="hookOnError" fetch-target="#result">
     Click me and check console!
   </a>

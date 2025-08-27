@@ -7,6 +7,9 @@
   <title>afetch.js - Example 11: Spinner</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome-4@4.7.4/css/font-awesome.min.css">
   <script src="../src/afetch.js"></script>
+  <!--For CDN: 
+    <script src="https://cdn.jsdelivr.net/gh/naveedurrehman/afetch/dist/afetch.min.js" defer></script>
+  -->
 </head>
 
 <body>
@@ -14,29 +17,18 @@
   <h1>afetch.js - Example 11: Spinner</h1>
 
   <p>
-    A request will be sent to api.dictionaryapi.dev. In the meantime, the spinner will turn on and the button will be
+    A request will be sent to a slow responding api. In the meantime, the spinner will turn on and the button will be
     disabled.
   </p>
 
-  <input id="word" type="text" value="game" />
-
-  <button type="button" class="btn btn-primary" fetch="" fetch-onbefore="hookOnBefore" fetch-spinner="#spin"
-    fetch-disabling fetch-target="#result">
+  <button type="button" class="btn btn-primary" fetch="https://www.naveedurrehman.com/afetch/api/slow/?love=life"
+    fetch-spinner="#spin" fetch-disabling fetch-target="#result">
     <i id="spin" class="fa fa-spinner fa-spin" style="display:none;"></i>
-    Define
+    Click Me!
   </button>
 
   <pre id="result"></pre>
 
-  <script>
-    function hookOnBefore(element) {
-      var url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + document.getElementById('word').value;
-      element.setAttribute('fetch', url);
-    }
-  </script>
-
-  <hr />
-  <small>Powered by https://api.dictionaryapi.dev</small>
 </body>
 
 </html>
