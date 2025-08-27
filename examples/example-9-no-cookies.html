@@ -20,16 +20,16 @@
     may not work on CodePen due to CORS; testing on localhost is recommended.
   </p>
 
-  <script>
-    //Setting cookie
-    document.cookie = "foo_cookie=bar_value; Max-Age=3600; Path=/" + (location.protocol === "https:" ? "; Secure" : "");
-  </script>
-
   <a fetch="https://www.naveedurrehman.com/afetch/api/main/?love=life" fetch-target="#result" fetch-credentials="omit">
     Click Me!
   </a>
 
   <pre id="result"></pre>
+
+  <script>
+    //Setting cookie
+    document.cookie = "foo_cookie=bar_value; Max-Age=3600; Path=/" + (location.protocol === "https:" ? "; Secure" : "");
+  </script>
 
 </body>
 
