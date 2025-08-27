@@ -15,16 +15,21 @@
   <h1>afetch.js - Example 9: No Cookies</h1>
 
   <p>
-    The server will receive query string and will return it. The fetch-credentials attribute controls whether cookies
-    and authentication data are sent with the request (e.g., "omit", "same-origin", or "include").
-    Compare the output with Example 1.
+    The fetch-credentials attribute controls whether cookies and authentication data are sent with the request (e.g.,
+    "omit", "same-origin", or "include"). In this example, the credentials are omitted so the cookies are not sent. This
+    may not work on CodePen due to CORS; testing on localhost is recommended.
   </p>
+
+  <script>
+    //Setting cookie
+    document.cookie = "foo_cookie=bar_value; Max-Age=3600; Path=/" + (location.protocol === "https:" ? "; Secure" : "");
+  </script>
 
   <a fetch="https://www.naveedurrehman.com/afetch/api/main/?love=life" fetch-target="#result" fetch-credentials="omit">
     Click Me!
   </a>
 
-  <div id="result"></div>
+  <pre id="result"></pre>
 
 </body>
 

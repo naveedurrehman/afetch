@@ -15,57 +15,58 @@
   <h1>afetch.js - Example 6: Hooks for Parsed Data</h1>
 
   <p>
-    Hook functions are called when the parsed data is received.
-    The server_parseddate.php file is used to return different types of data based on the sendme query parameter.
+    This example demonstrates the hook functions that run immediately after automated data parsing. The API returns the
+    format specified by the sendme query parameter (json, text, blob, or js).
   </p>
 
   <ul>
     <li>
       <a fetch="https://www.naveedurrehman.com/afetch/api/parseddata/?sendme=json"
-        fetch-onjson="({data}) => alert(data.message)" fetch-target="#result">
-        JSON: Click me! (Example of in-line JS)
+        fetch-onjson="({data}) => document.getElementById('infoHook').innerHTML = JSON.stringify(data, null, 2)">
+        JSON Data Test (Example of in-line JS)
       </a>
     </li>
     <li>
       <a fetch='https://www.naveedurrehman.com/afetch/api/parseddata/?sendme=json' fetch-onjson="hookOnJSON">
-        JSON: Click me and check console! (Example of global function)
+        JSON Data Test (Example of global function)
       </a>
     </li>
     <li>
       <a fetch='https://www.naveedurrehman.com/afetch/api/parseddata/?sendme=text' fetch-ontext="hookOnText">
-        Text: Click me and check console!
+        Text Data Test
       </a>
     </li>
     </li>
     <li>
       <a fetch='https://www.naveedurrehman.com/afetch/api/parseddata/?sendme=blob' fetch-onblob="hookOnBlob">
-        Blob: Click me and check console!
+        Blob Data Test
       </a>
     </li>
     <li>
       <a fetch='https://www.naveedurrehman.com/afetch/api/parseddata/?sendme=js' fetch-onjs="hookOnJS">
-        <!--Use fetch-execjs="false" to stop automatic execution of JS codes-->
-        JS: Click me and check console!
+        <!--Use fetch-execjs="false" to disable automatic execution of JS codes-->
+        JS Data Test (script will automatically run)
       </a>
     </li>
   </ul>
 
-  <div id="result"></div>
+  <pre id="result"></pre>
+  <pre id="infoHook"></pre>
 
   <script>
 
-    function hookOnJSON({ data }) {
-      console.log(['hookOnJSON', data]);
-      document.getElementById('result').innerHTML = "JSON data received: " + JSON.stringify(data);
+    function hookOnJSON(data) {
+      document.getElementById('infoHook').innerHTML = JSON.stringify(data, null, 2);
+      document.getElementById('result').innerHTML = "JSON data received.";
     }
 
-    function hookOnText({ data }) {
-      console.log(['hookOnText', data]);
-      document.getElementById('result').innerHTML = "Text data received: " + data;
+    function hookOnText(data) {
+      document.getElementById('infoHook').innerHTML = JSON.stringify(data, null, 2);
+      document.getElementById('result').innerHTML = "Text data received."
     }
 
     function hookOnBlob({ data }) {
-      console.log(['hookOnBlob', data]);
+      document.getElementById('infoHook').innerHTML = '';
       document.getElementById('result').innerHTML = "Blob data received.";
       const url = URL.createObjectURL(data);
       const img = document.createElement("img");
@@ -74,9 +75,9 @@
       document.body.appendChild(img);
     }
 
-    function hookOnJS({ data }) {
-      console.log(['hookOnJS', data]);
-      document.getElementById('result').innerHTML = "JS received and executed: " + data;
+    function hookOnJS(data) {
+      document.getElementById('infoHook').innerHTML = JSON.stringify(data, null, 2);
+      document.getElementById('result').innerHTML = "JS received and executed.";
     }
 
   </script>

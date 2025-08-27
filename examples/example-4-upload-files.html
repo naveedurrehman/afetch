@@ -15,19 +15,20 @@
   <h1>afetch.js - Example 4: Upload File</h1>
 
   <p>
-    The server will receive form's file(s) data and will return it.
+    In this example, the API receives the files data of the form (frmUploadFiles) and returns the information about
+    them. The result appears inside #result.
   </p>
 
   <form id="frmUploadFiles">
     <input type="file" name="files[]" multiple>
   </form>
 
-  <a fetch='https://www.naveedurrehman.com/afetch/api/main/' fetch-method='post' fetch-forms='frmUploadFiles'
+  <button fetch='https://www.naveedurrehman.com/afetch/api/main/' fetch-method='post' fetch-forms='frmUploadFiles'
     fetch-target="#result">
-    Click me!
-  </a>
+    Upload
+  </button>
 
-  <div id="result"></div>
+  <pre id="result"></pre>
 
 </body>
 

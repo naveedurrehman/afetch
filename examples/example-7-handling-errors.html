@@ -15,56 +15,63 @@
   <h1>afetch.js - Example 7: Handling Errors</h1>
 
   <p>
-    Handling various types of errors.
+    This example demonstrates triggering hooks on key errors.
   </p>
 
-  <ul>
-    <li>
-      <a fetch='https://www.google.com/' fetch-onerror="hookOnError">
-        fetch-onfailure: Happens due to URL, CORS, etc. Click me and check console!
-      </a>
-    </li>
-    <li>
-      <a fetch='https://www.naveedurrehman.com/afetch/api/parseddata/?sendme=wrongjson'
-        fetch-onparsingerror="hookOnParsingError" fetch-onerror="hookOnError">
-        fetch-onparsingerror: When receive invalid JSON in response. Click me and check console!
-      </a>
-    </li>
-    <li>
-      <a fetch='https://www.naveedurrehman.com/afetch/api/main/' fetch-body='abcdefg...'
-        fetch-onfetchbodyerror="hookOnFetchBodyError" fetch-onerror="hookOnError">
-        fetch-onfetchbodyerror: When invalid fetch-body is provided. Click me and check console!
-      </a>
-    </li>
-  </ul>
+  <h2>fetch-onfetchbodyerror:</h2>
+  <p>The hook triggers when the fetch-body or fetch-headers attribute contains invalid or
+    malformed JSON that cannot be parsed.</p>
+  <button fetch='https://www.naveedurrehman.com/afetch/api/main/' fetch-body='i.am.not.in.json...'
+    fetch-onfetchbodyerror="hookOnFetchBodyError" fetch-onerror="hookOnError">Test
+  </button>
 
-  <div id="result"></div>
+  <h2>fetch-onfailure:</h2>
+  <p>The hook triggers on network errors, timeouts, aborted requests, HTTP non-OK statuses, or
+    unexpected parsing failures.</p>
+  <button fetch='https://www.google.com/' fetch-onfailure="hookOnFailure" fetch-onerror="hookOnError">Test</button>
+
+  <h2>fetch-onparsingerror:</h2>
+  <p>The hook triggers when the fetch-body or fetch-headers attribute contains invalid or
+    malformed JSON that cannot be parsed.</p>
+  <button fetch='https://www.naveedurrehman.com/afetch/api/parseddata/?sendme=wrongjson'
+    fetch-onparsingerror="hookOnParsingError" fetch-onerror="hookOnError">Test</button>
+
+  <p>
+
+    Specific error hook:
+  <pre id="lblSpecific"></pre>
+
+  Error hook:
+  <pre id="lblError"></pre>
+
+  </p>
 
   <script>
 
+    // The fetch-onfetchbodyerror hook triggers when the fetch-body or fetch-headers attribute contains invalid or malformed JSON that cannot be parsed.
+    function hookOnFetchBodyError({ element, error }) {
+      console.log([element, error]);
+      document.getElementById('lblSpecific').innerHTML = error;
+    }
+
     // The fetch-onfailure hook triggers on network errors, timeouts, aborted requests, HTTP non-OK statuses, or unexpected parsing failures.
     function hookOnFailure({ element, url, method, error }) {
-      console.log(['hookOnFailure', element, url, method, error]);
-      document.getElementById('result').innerHTML = error;
+      console.log([element, url, method, error]);
+      document.getElementById('lblSpecific').innerHTML = error;
     }
 
     // The fetch-onparsingerror hook triggers when the response body cannot be parsed into the expected format (e.g., invalid JSON, wrong content type, or corrupted data).    
     function hookOnParsingError({ element, url, method, error, raw, response }) {
-      console.log(['hookOnParsingError', element, url, method, error, raw, response]);
-      document.getElementById('result').innerHTML = error;
-    }
-
-    // The fetch-onfetchbodyerror hook triggers when the fetch-body or fetch-headers attribute contains invalid or malformed JSON that cannot be parsed.
-    function hookOnFetchBodyError({ element, error }) {
-      console.log(['hookOnParsingError', element, error]);
-      document.getElementById('result').innerHTML = error;
+      console.log([element, url, method, error, raw, response]);
+      document.getElementById('lblSpecific').innerHTML = error;
     }
 
     // The fetch-onerror hook triggers on any kind of error.
     function hookOnError({ element, error }) {
-      console.log(['hookOnError', element, error]);
-      document.getElementById('result').innerHTML = error;
+      console.log([element, error]);
+      document.getElementById('lblError').innerHTML = error;
     }
+
   </script>
 
 </body>

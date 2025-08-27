@@ -15,39 +15,47 @@
   <h1>afetch.js - Example 5: Hooks Basic</h1>
 
   <p>
-    Hook functions are called at different stages of the request lifecycle: when the request starts, when a response is
-    received, and when the request completes.
+    Hook functions run at different stages of the request lifecycle. This example demonstrates the onStart, onResponse,
+    and onComplete hooks
   </p>
 
   <a fetch='https://www.naveedurrehman.com/afetch/api/main/?love=life' fetch-onstart="hookOnStart"
     fetch-onresponse="hookOnResponse" fetch-oncomplete="hookOnComplete" fetch-target="#result">
-    Click me and check console!
+    Click Me!
   </a>
 
-  <!-- These act as optional status labels -->
   <div id="lblStart" style="display:none;"> &check; Started</div>
-  <div id="lblResponse" style="display:none;"> &check; Response Received</div>
-  <div id="lblComplete" style="display:none;"> &check; Completed</div>
+  <pre id="infoStart"></pre>
 
-  <div id="result"></div>
+  <div id="lblResponse" style="display:none;"> &check; Response Received</div>
+  <pre id="infoResponse"></pre>
+
+  <div id="lblComplete" style="display:none;"> &check; Completed</div>
+  <pre id="infoComplete"></pre>
+
+  <pre id="result"></pre>
 
   <script>
 
     // This hook executes just before the fetch request starts.
-    function hookOnStart({ element, url, method }) {
-      console.log(['hookOnStart', element, method, url]);
+    function hookOnStart(data) {
+      console.log(data);
+      document.getElementById('infoStart').innerHTML = JSON.stringify(data, null, 2);
       document.getElementById('lblStart').style.display = '';
     }
 
     // This hook executes when the response is received. For parsed responses (JSON, text, and blob), see Example 6.
-    function hookOnResponse({ element, url, method, response }) {
-      console.log(['hookOnResponse', element, method, url, response]);
+    function hookOnResponse(data) {
+      console.log(data);
+      document.getElementById('infoResponse').innerHTML = JSON.stringify(data, null, 2);
       document.getElementById('lblResponse').style.display = '';
+
     }
 
     // This hook executes after the fetch request is complete.
-    function hookOnComplete({ element, url, method }) {
-      console.log(['hookOnComplete', element, method, url]);
+    function hookOnComplete(data) {
+      console.log(data);
+      document.getElementById('infoComplete').innerHTML = JSON.stringify(data, null, 2);
       document.getElementById('lblComplete').style.display = '';
     }
 

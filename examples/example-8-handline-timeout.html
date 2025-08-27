@@ -8,7 +8,6 @@
   <!--For CDN: 
     <script src="https://cdn.jsdelivr.net/gh/naveedurrehman/afetch/dist/afetch.min.js" defer></script>
   -->
-
 </head>
 
 <body>
@@ -16,35 +15,48 @@
   <h1>afetch.js - Example 8: Handling Timeout</h1>
 
   <p>
-    The allowed time for fetch is 2000ms but the server will respond in 3000sec.
+    This example demonstrates a hook that triggers after a timeout: the fetch is limited to 2000 ms, but the API server
+    responds after 3000 ms.
   </p>
 
   <a fetch='https://www.naveedurrehman.com/afetch/api/slow/' fetch-timeout="2000" fetch-ontimeout="hookOnTimeout"
-    fetch-onfailure="hookOnFailure" fetch-onerror="hookOnError" fetch-target="#result">
-    Click me and check console!
+    fetch-onfailure="hookOnFailure" fetch-onerror="hookOnError">
+    Click Me!
   </a>
 
-  <div id="result"></div>
+  <p>
+
+    Timeout error hook:
+  <pre id="lblTimeout"></pre>
+
+  Failure error hook:
+  <pre id="lblFailure"></pre>
+
+  Error hook:
+  <pre id="lblError"></pre>
+
+  </p>
 
   <script>
 
     // The fetch-ontimeout hook triggers on timeouts
-    function hookOnTimeout({ element, url, method }) {
-      console.log(['hookOnTimeout', element, url, method]);
-      document.getElementById('result').innerHTML = 'Timeout!';
+    function hookOnTimeout({ element, url, method, timeout }) {
+      console.log([element, url, method, timeout]);
+      document.getElementById('lblTimeout').innerHTML = 'Timeout!';
     }
 
-    // The fetch-onfailure hook triggers on network errors, timeouts, aborted requests, HTTP non-OK statuses, or unexpected parsing failures.
+    // The fetch-onfailure hook also triggers on timeouts
     function hookOnFailure({ element, url, method, error }) {
-      console.log(['hookOnFailure', element, url, method, error]);
-      document.getElementById('result').innerHTML = error;
+      console.log([element, url, method, error]);
+      document.getElementById('lblFailure').innerHTML = 'Timeout!';
     }
 
     // The fetch-onerror hook triggers on any kind of error.
     function hookOnError({ element, error }) {
-      console.log(['hookOnError', element, error]);
-      document.getElementById('result').innerHTML = error;
+      console.log([element, error]);
+      document.getElementById('lblError').innerHTML = error;
     }
+
   </script>
 
 </body>

@@ -142,7 +142,6 @@
         const timeoutMs = parseInt(a.getAttribute("fetch-timeout") || "0", 10) || 0;
         const execjs = getBooleanAttr(a, "fetch-execjs", true);
 
-
         let url = new URL(urlAttr, location.href);
         let body, headers, queryObj, methodOverride;
         try {
@@ -165,9 +164,9 @@
 
         const controller = new AbortController();
         const timeoutId = timeoutMs ? setTimeout(() => {
-            controller.abort('Fetch timeout (>' + timeoutMs + 'ms)');
+            controller.abort('Timeout!');
             console.error(['fetch-ontimeout']);
-            callHook(a, "fetch-ontimeout", { element: a, url: url.href, method });
+            callHook(a, "fetch-ontimeout", { element: a, url: url.href, method, timeout: timeoutMs });
         }, timeoutMs) : null;
 
         activateSpinner(a, true);

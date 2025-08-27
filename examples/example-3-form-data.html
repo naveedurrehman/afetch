@@ -15,7 +15,8 @@
   <h1>afetch.js - Example 3: Form Data</h1>
 
   <p>
-    The server will receive form data and will return it.
+    In this example, the API receives the form data (frmProfile) as post and returns it. The result appears inside
+    #result.
   </p>
 
   <form id="frmProfile">
@@ -23,12 +24,12 @@
     Last name: <input name="lastname" value="bar">
   </form>
 
-  <a fetch='https://www.naveedurrehman.com/afetch/api/main/' fetch-method='post' fetch-forms='frmProfile'
+  <button fetch='https://www.naveedurrehman.com/afetch/api/main/' fetch-method='post' fetch-forms='frmProfile'
     fetch-target="#result">
-    Click me!
-  </a>
+    Submit
+  </button>
 
-  <div id="result"></div>
+  <pre id="result"></pre>
 
 </body>
 

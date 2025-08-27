@@ -15,20 +15,24 @@
   <h1>afetch.js - Example 10: Dynamic</h1>
 
   <p>
-    The fetch attribute is empty.
-    It will be filled dynamically using hook in fetch-onbefore.
+    In this example, the fetch attribute is set dynamically via the fetch-onbefore hook.
   </p>
 
-  <a fetch="" fetch-onbefore="hookOnBefore" fetch-target="#result" fetch-credentials="omit" fetch-target="#result">
-    Click Me!
-  </a>
+  Love is:
+  <select id="whatislove">
+    <option value="life">life</option>
+    <option value="blind">blind</option>
+  </select>
 
-  <div id="result"></div>
+  <button fetch="" fetch-onbefore="hookOnBefore" fetch-target="#result" fetch-target="#result">
+    Submit
+  </button>
+
+  <pre id="result"></pre>
 
   <script>
     function hookOnBefore(element) {
-      console.log(element);
-      element.setAttribute('fetch', 'https://www.naveedurrehman.com/afetch/api/main/?love=life');
+      element.setAttribute('fetch', 'https://www.naveedurrehman.com/afetch/api/main/?love=' + document.getElementById('whatislove').value);
     }
   </script>
 </body>
