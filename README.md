@@ -2,7 +2,7 @@
 [![jsDelivr: afetch.min.js](https://img.shields.io/badge/jsDelivr-afetch.min.js-blue?logo=jsdelivr&logoWidth=12&style=flat-square)](https://cdn.jsdelivr.net/gh/naveedurrehman/afetch/dist/afetch.min.js)
 [![CodePen: Examples](https://img.shields.io/badge/CodePen-Collection-000?logo=codepen&logoColor=white&logoWidth=12&style=flat-square)](https://codepen.io/collection/zzBMba)
 
-<img src="./assets/logo.png" alt="afetch banner" width="120" align="right">
+<img src="./logo.png" alt="afetch banner" width="120" align="right">
 
 **afetch** is minimal JavaScript library for adding fetch() capabilities to &lt;a> and &lt;button> tags. **afetch** turns plain HTML into real apps: trigger **fetch()** with declarative attributes on `<a>` and `<button>`. No framework. No build step. Works anywhere.
 
@@ -25,7 +25,7 @@
 
 ## 🧪 Live Examples on CodePen
 
-A collection of runnable **afetch** examples is available on CodePen—browse it here: [CodePen collection](https://codepen.io/naveedcoder/collections/).
+A collection of runnable **afetch** examples is available on CodePen. Browse it here: [CodePen collection](https://codepen.io/naveedcoder/collections/).
 
 - [Example 1: Basic](https://codepen.io/naveedcoder/pen/OPywWzZ)
 - [Example 2: Raw Data](https://codepen.io/naveedcoder/pen/jEbpzGQ)
