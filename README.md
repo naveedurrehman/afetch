@@ -25,7 +25,7 @@
 
 ## 🧪 Live Examples on CodePen
 
-A collection of runnable **afetch** examples is available on CodePen. Browse it here: [CodePen collection](https://codepen.io/naveedcoder/collections/).
+A collection of runnable **afetch** examples is available on CodePen. Browse it here: [CodePen collection](https://codepen.io/collection/zzBMba).
 
 - [Example 1: Basic](https://codepen.io/naveedcoder/pen/OPywWzZ)
 - [Example 2: Raw Data](https://codepen.io/naveedcoder/pen/jEbpzGQ)
