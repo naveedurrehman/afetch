@@ -23,6 +23,24 @@
 
 ---
 
+## 🧪 Live Examples on CodePen
+
+A collection of runnable **afetch** examples is available on CodePen—browse it here: [CodePen collection](https://codepen.io/naveedcoder/collections/).
+
+- [Example 1: Basic](https://codepen.io/naveedcoder/pen/OPywWzZ)
+- [Example 2: Raw Data](https://codepen.io/naveedcoder/pen/jEbpzGQ)
+- [Example 3: Form Data](https://codepen.io/naveedcoder/pen/LEpBdOR)
+- [Example 4: Upload File](https://codepen.io/naveedcoder/pen/QwjBmOJ)
+- [Example 5: Hooks Basic](https://codepen.io/naveedcoder/pen/pvjZLdY)
+- [Example 6: Hooks for Parsed Data](https://codepen.io/naveedcoder/pen/vENaRpZ)
+- [Example 7: Handling Errors](https://codepen.io/naveedcoder/pen/ZYbjxvd)
+- [Example 8: Handling Timeout](https://codepen.io/naveedcoder/pen/vENaRdZ)
+- [Example 9: No Cookies](https://codepen.io/naveedcoder/pen/RNWBMML)
+- [Example 10: Dynamic](https://codepen.io/naveedcoder/pen/ZYbjxxg)
+- [Example 11: Spinner](https://codepen.io/naveedcoder/pen/xbwJWME)
+- [Example 12: Redirects](https://codepen.io/naveedcoder/pen/LEpBdqW)
+---
+
 ## ✨ Why afetch?
 
 - **Progressive enhancement, zero boilerplate.** Add a couple of `fetch-*` attributes to links or buttons and you’ve got async behavior—no framework, no controllers, no bundler required.
