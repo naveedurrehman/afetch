@@ -12,7 +12,7 @@
 
 ```html
 <script src="afetch.js"></script>
-
+<!-- For CDN: https://cdn.jsdelivr.net/gh/naveedurrehman/afetch/dist/afetch.min.js -->
 <a
   fetch="/api/hello"
   fetch-onjson="({data}) => alert(data.message)"
