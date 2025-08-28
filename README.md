@@ -28,6 +28,29 @@
 ```
 So: click → aFetch does `GET /api/hello` → response is parsed as JSON → your `fetch-onjson` handler runs with `{ data }`.
 
+## ✨ afetch vs `fetch()`: Less Code, Same Result
+
+The example above is equivalent to the following, longer code using the browser’s native `fetch()` API. Notice how much more concise the afetch version is!
+
+```html
+<-- Longer and much complex codes without afetch! :( -->
+
+<a id="hello-link">Click Me!</a>
+<script>
+  document.getElementById('hello-link').addEventListener('click', async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch('/api/hello', { headers: { 'Accept': 'application/json' } });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      alert(data.message);
+    } catch (err) {
+      console.error(err);
+      // optional: alert('Something went wrong')
+    }
+  });
+</script>
+```
 ---
 
 ## 🧪 Live Examples on CodePen
