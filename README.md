@@ -1,17 +1,23 @@
-# afetch — Add fetch() to `<a>` & `<button>` via attributes
+# afetch — Add `fetch()` to `<a>` and `<button>` via attributes
 [![jsDelivr: afetch.min.js](https://img.shields.io/badge/jsDelivr-afetch.min.js-blue?logo=jsdelivr&logoWidth=12&style=flat-square)](https://cdn.jsdelivr.net/gh/naveedurrehman/afetch/dist/afetch.min.js)
 [![CodePen: Examples](https://img.shields.io/badge/CodePen-Collection-000?logo=codepen&logoColor=white&logoWidth=12&style=flat-square)](https://codepen.io/collection/zzBMba)
 
-<img src="./assets/logo.png" alt="afetch banner" width="120" align="right">
+<img src="./logo.png" alt="afetch banner" width="120" align="right">
 
-**afetch** is minimal JavaScript library for adding fetch() capabilities to &lt;a> and &lt;button> tags. **afetch** turns plain HTML into real apps: trigger **fetch()** with declarative attributes on `<a>` and `<button>`. No framework. No build step. Works anywhere.
+**afetch** is minimal JavaScript library for adding `fetch()` capabilities to`<a>` and `<button>` tags. **afetch** turns plain HTML into real apps: trigger `fetch()` with declarative attributes on `<a>` and `<button>`. No framework. No build step. Works anywhere.
 
 ---
 
-## 🚀 5-second demo
+## 🚀 How it Works in 5-sec
+
+* This `<a>` does **not** use `href`. Instead, the `fetch` attribute turns the link into a *fetch trigger*. No page navigation happens.
+* `fetch="/api/hello"` tells aFetch what URL to request when the link is activated (clicked).
+* When the response is JSON, aFetch calls the `fetch-onjson` hook with an object that includes the parsed JSON as `data`.
+* In the example, the hook destructures `{ data }` and shows `data.message` in an alert.
 
 ```html
 <script src="afetch.js"></script>
+<!-- For CDN: https://cdn.jsdelivr.net/gh/naveedurrehman/afetch/dist/afetch.min.js -->
 
 <a
   fetch="/api/hello"
@@ -20,12 +26,36 @@
   Click Me!
 </a>
 ```
+So: click → aFetch does `GET /api/hello` → response is parsed as JSON → your `fetch-onjson` handler runs with `{ data }`.
 
+## ✨ afetch vs `fetch()`: Less Code, Same Result
+
+The example above is equivalent to the following, longer code using the browser’s native `fetch()` API. Notice how much more concise the afetch version is!
+
+```html
+<-- Longer and much complex codes without afetch! :( -->
+
+<a id="hello-link">Click Me!</a>
+<script>
+  document.getElementById('hello-link').addEventListener('click', async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch('/api/hello', { headers: { 'Accept': 'application/json' } });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      alert(data.message);
+    } catch (err) {
+      console.error(err);
+      // optional: alert('Something went wrong')
+    }
+  });
+</script>
+```
 ---
 
 ## 🧪 Live Examples on CodePen
 
-A collection of runnable **afetch** examples is available on CodePen—browse it here: [CodePen collection](https://codepen.io/naveedcoder/collections/).
+A collection of runnable **afetch** examples is available on CodePen. Browse it here: [CodePen collection](https://codepen.io/collection/zzBMba).
 
 - [Example 1: Basic](https://codepen.io/naveedcoder/pen/OPywWzZ)
 - [Example 2: Raw Data](https://codepen.io/naveedcoder/pen/jEbpzGQ)
@@ -81,7 +111,7 @@ A collection of runnable **afetch** examples is available on CodePen—browse it
 
 ## 🪝 Hooks
 
-| Hook attribute                                                  | When it fires                                             | `detail` payload                                                                                        | Notes / common use                                                 |
+| Hook attribute                                                  | When it fires                                             | detail payload                                                                                        | Notes / common use                                                 |
 | --------------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
 | `fetch-onbefore`                                                | Right before reading attributes and starting the request  | the element itself (`<a>`/`<button>`)                                                                   | Last chance to tweak the DOM/state.                                |
 | `fetch-onstart`                                                 | After options are prepared; just before calling `fetch()` | `{ element, url, method, init: { headers, body } }`                                                     | Great for logging/telemetry.                                       |
