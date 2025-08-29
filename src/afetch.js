@@ -125,7 +125,7 @@
             callHook(a, "fetch-onbefore", a);
         }
 
-        const urlAttr = a.getAttribute("fetch");
+        const urlAttr = placeholderParse(a.getAttribute("fetch"));
         if (!urlAttr) return;
 
         let method = a.getAttribute("fetch-method") || "GET";
@@ -246,6 +246,37 @@
         }
     }
 
+
+    function placeholderParse(tpl) {
+        return tpl.replace(/\{([^}]+)\}/g, (_, rawSel) => {
+            const sel = rawSel.trim();
+            let el;
+            try { el = document.querySelector(sel); } catch { return ""; }
+            if (!el) return "";
+
+            // Heuristic: pick the "best" value for this element
+            const tag = el.tagName?.toLowerCase();
+            if (el instanceof HTMLInputElement) {
+                const t = (el.type || "").toLowerCase();
+                if (t === "checkbox" || t === "radio") return el.checked ? (el.value || "on") : "";
+                if (t === "file") return Array.from(el.files || []).map(f => f.name).join(", ");
+                return el.value || "";
+            }
+            if (el instanceof HTMLTextAreaElement) return el.value || "";
+            if (el instanceof HTMLSelectElement) {
+                if (el.multiple) return Array.from(el.selectedOptions).map(o => o.value || o.textContent.trim()).join(", ");
+                const o = el.selectedOptions[0];
+                return (o && (o.value || o.textContent.trim())) || el.value || "";
+            }
+            if (el.isContentEditable) return (el.textContent || "").trim();
+            if (tag === "img") return el.getAttribute("alt") || el.getAttribute("src") || "";
+            if (tag === "a") return (el.textContent || "").trim() || el.getAttribute("href") || "";
+            const text = (el.textContent || "").trim();
+            if (text) return text;
+            if ("value" in el && el.value) return el.value;          // last-ditch: value
+            return el.innerHTML || "";                                // final fallback
+        });
+    }
 
     function getBooleanAttr(el, name, defaultValue = false) {
         if (!el.hasAttribute(name)) return defaultValue;        // not present

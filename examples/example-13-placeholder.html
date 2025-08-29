@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>afetch.js - Example 13: Placeholders</title>
+    <script src="../src/afetch.js"></script>
+    <!--For CDN: 
+    <script src="https://cdn.jsdelivr.net/gh/naveedurrehman/afetch/dist/afetch.min.js" defer></script>
+    -->
+</head>
+
+<body>
+
+    <h1>afetch.js - Example 13: Placeholders</h1>
+
+    <p>
+        In this example, the {placeholders} in the fetch URL are replaced with values from the DOM elements matched by
+        the given CSS selectors. This is handy for simple substitutions, so you don’t need to use fetch-onbefore.
+    </p>
+
+    <input type="text" id="word" value="game" />
+
+    <a fetch="https://api.dictionaryapi.dev/api/v2/entries/en/{#word}"
+        fetch-onjson="(response)=>{document.getElementById('result').innerHTML=(response.data[0].meanings[0].definitions[0].definition);}">Search</a>
+
+    <pre id="result"></pre>
+
+</body>
+
+</html>
