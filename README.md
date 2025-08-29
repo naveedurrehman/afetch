@@ -69,11 +69,13 @@ A collection of runnable **afetch** examples is available on CodePen. Browse it 
 - [Example 10: Dynamic](https://codepen.io/naveedcoder/pen/ZYbjxxg)
 - [Example 11: Spinner](https://codepen.io/naveedcoder/pen/xbwJWME)
 - [Example 12: Redirects](https://codepen.io/naveedcoder/pen/LEpBdqW)
+- [Example 13: Placeholders](https://codepen.io/naveedcoder/pen/OPyoGaq)
 ---
 
 ## ✨ Why afetch?
 
 - **Progressive enhancement, zero boilerplate.** Add a couple of `fetch-*` attributes to links or buttons and you’ve got async behavior—no framework, no controllers, no bundler required.
+- **Placeholders.** Use {<css-selector>} in fetch url; at request time afetch resolves each to the matched element’s best value (value/text/selected/etc.).
 - **Predictable parsing.** `fetch-response="auto"` smart-parses by content type (JSON / text / blob / js), or you can force a mode per request for consistency across endpoints.
 - **Drop-in rendering.** Point at any selector with `fetch-target` and choose how content lands (`fetch-target-format`, `fetch-target-mode`), so you can preview responses without writing DOM code.
 - **Great with forms.** Use `fetch-forms` to collect fields (even across multiple forms) and optionally merge JSON via `fetch-body`. GET bodies become query params automatically.
